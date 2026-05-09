@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>FOR SUBBU </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #ffdde1 0%, #f9c9d4 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Quicksand', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .apology-card {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.95);
+            backdrop-filter: blur(1px);
+            border-radius: 4rem 2rem 4rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 2rem 1.8rem 2.5rem;
+            text-align: center;
+        }
+
+        .sorry-big {
+            font-size: 4.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e43f5a, #ff8c94);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 4px 4px 12px rgba(0,0,0,0.08);
+            margin: 1rem 0 0.5rem;
+        }
+
+        .sub-message {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #b3415b;
+            background: #fff0f3;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 80px;
+            margin-top: 0.75rem;
+            box-shadow: inset 0 -1px 0 #ffc0cb, 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        button {
+            background: #ff7b89;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            margin: 1.2rem 0.8rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 0 #aa3e50;
+            font-family: inherit;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #aa3e50;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .btn-yes {
+            background: #4c9f70;
+            box-shadow: 0 6px 0 #2c5e3f;
+        }
+
+        .btn-no {
+            background: #c95a5a;
+            box-shadow: 0 6px 0 #823535;
+        }
+
+        .image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 32px;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+            border: 3px solid #ffe3e8;
+            display: block;
+        }
+
+        .message-box {
+            background: rgba(255, 245, 240, 0.9);
+            border-radius: 48px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: all 0.25s ease;
+        }
+
+        .sorry-storm {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, auto));
+            gap: 0.6rem;
+            max-height: 380px;
+            overflow-y: auto;
+            background: #fff2f5;
+            border-radius: 36px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border: 2px dashed #ff9aae;
+        }
+
+        .sorry-item {
+            background: #ffe0e7;
+            padding: 0.6rem 0.4rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b13e5a;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        footer {
+            font-size: 0.7rem;
+            margin-top: 1.5rem;
+            color: #cf91a0;
+        }
+
+        @keyframes floatGlow {
+            0% { text-shadow: 0 0 2px #ffb7c5; }
+            100% { text-shadow: 0 0 12px #ff85a1; }
+        }
+
+        .heart-beat {
+            animation: floatGlow 1s infinite alternate;
+        }
+
+        .storm-image {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="apology-card" id="appRoot"></div>
+
+<script>
+    const root = document.getElementById("appRoot");
+
+    // Image paths - save your images in an "images" folder with these exact names
+    const images = {
+        happyYes: "images/happy-yes.jpg",           // For all Yes button success screens
+        sorryStorm: "images/sorry-storm.jpg",       // For 100 messages sorry page
+        kohinoor: "images/kohinoor.jpg",            // For "you are my kohinoor" screen
+        pleaseAccept: "images/please-accept.jpg",   // For "subbu please accept my sorry" screen
+        bungaMoothi: "images/bunga-moothi.jpg",     // For "nen aligaanu bunga moothi" screen
+        bestieForever: "images/bestie-forever.jpg", // For "naak telsu subbu nuvu yes" screen
+        finalBesties: "images/final-besties.jpg"    // For final yes friendship screen
+    };
+
+    function renderMainScreen() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="sorry-big">sorry subboooooooo</div>
+                <div class="sub-message">inka epudu ki cheyyanuuuu subbbuuuuu</div>
+                <div class="btn-group">
+                    <button id="continueBtn">💖 Continue 💖</button>
+                </div>
+                <footer>✨ for my dearest Subbu ✨</footer>
+            </div>
+        `;
+        document.getElementById("continueBtn")?.addEventListener("click", () => {
+            renderAcceptQuestion();
+        });
+    }
+
+    function renderAcceptQuestion() {
+        root.innerHTML = `
+            <div class="center-align">
+                <h2 style="color:#ba5a72;">🌸 you accepted my sorry? 🌸</h2>
+                <div class="btn-group">
+                    <button id="yesAcceptBtn" class="btn-yes">Yes 💕</button>
+                    <button id="noAcceptBtn" class="btn-no">No 💔</button>
+                </div>
+            </div>
+        `;
+        document.getElementById("yesAcceptBtn")?.addEventListener("click", () => {
+            renderThankYouSubbu();
+        });
+        document.getElementById("noAcceptBtn")?.addEventListener("click", () => {
+            render100MessagesStorm();
+        });
+    }
+
+    function renderThankYouSubbu() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box" style="font-size: 2.2rem; font-weight: bold; background: #ffe6ed;">
+                    thank youu subbuuuuuu 🥰❤️🫂🫶
+                </div>
+                <div class="image-container">
+                    <img src="${images.happyYes}" alt="Happy Subbu" onerror="this.src='https://placehold.co/600x400/FFB6C1/FFFFFF?text=❤️+Happy+Yes+❤️'">
+                </div>
+                <div class="btn-group">
+                    <button id="restartExploreBtn" style="background:#ff7b89;">💗 Aww 💗</button>
+                </div>
+                <footer>You made my day, Subbu!</footer>
+            </div>
+        `;
+        document.getElementById("restartExploreBtn")?.addEventListener("click", () => {
+            renderMainScreen();
+        });
+    }
+
+    function render100MessagesStorm() {
+        const messages = [];
+        for (let i = 1; i <= 100; i++) {
+            messages.push(`<div class="sorry-item">sorry subbu 💔 ${i}</div>`);
+        }
+        root.innerHTML = `
+            <div class="center-align">
+                <h3 style="color:#a1425b;">I'm really sorry... 😭💔</h3>
+                <div class="image-container storm-image">
+                    <img src="${images.sorryStorm}" alt="Sorry Storm" onerror="this.src='https://placehold.co/600x400/F9ACB5/4A2E34?text=💔+Sorry+Messages+💔'">
+                </div>
+                <div class="sorry-storm" id="sorryStormContainer">
+                    ${messages.join('')}
+                </div>
+                <p style="margin: 1rem 0 0.5rem; font-weight: bold;">💌 Scroll down my heart 💌</p>
+                <div id="afterScrollOptions" style="margin-top: 1rem;"></div>
+            </div>
+        `;
+        const optionsContainer = document.getElementById("afterScrollOptions");
+        optionsContainer.innerHTML = `
+            <div class="btn-group">
+                <button id="stormYesBtn" class="btn-yes">Yes 💖</button>
+                <button id="stormStillNoBtn" class="btn-no">Still no 😢</button>
+            </div>
+        `;
+        document.getElementById("stormYesBtn")?.addEventListener("click", () => {
+            renderYouAreMyKohinoor();
+        });
+        document.getElementById("stormStillNoBtn")?.addEventListener("click", () => {
+            renderSubbuPleaseAccept();
+        });
+    }
+
+    function renderYouAreMyKohinoor() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <p style="font-size: 2rem; font-weight: bold; color:#b33b5c;">✨ you are my kohinoooooor subbuuu 💎 👑 ✨</p>
+                    <p style="font-size: 1.5rem;">naak telsu nen nee best friend ani 💗</p>
+                    <div class="image-container">
+                        <img src="${images.kohinoor}" alt="Kohinoor Subbu" onerror="this.src='https://placehold.co/600x400/FFB6C1/FFFFFF?text=💎+Kohinoor+💎'">
+                    </div>
+                </div>
+                <button id="restartFromKohinoor" style="margin-top: 20px;">Start Over 🌈</button>
+            </div>
+        `;
+        document.getElementById("restartFromKohinoor")?.addEventListener("click", () => {
+            renderMainScreen();
+        });
+    }
+
+    function renderSubbuPleaseAccept() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <p style="font-size: 1.6rem; font-weight: 600; color:#d44c6a;">subbu please subbu accept my sorry subbuuu please subbuu please pleasee pleaseeeeeeeee subbuuu</p>
+                    <p style="font-size: 1.3rem; margin-top: 0.5rem;">you are very good girll kadhaa accept my sorry 💞</p>
+                    <div class="image-container">
+                        <img src="${images.pleaseAccept}" alt="Please Accept" onerror="this.src='https://placehold.co/600x400/f9b5c2/ffffff?text=📸+Please+Accept+Sorry'">
+                    </div>
+                </div>
+                <div class="btn-group" id="subbuPleaseOptions">
+                    <button id="yesPleaseBtn" class="btn-yes">Yes 💕</button>
+                    <button id="noChanceBtn" class="btn-no">No chance 😔</button>
+                </div>
+            </div>
+        `;
+        document.getElementById("yesPleaseBtn")?.addEventListener("click", () => {
+            renderNaakTelusuSubbu();
+        });
+        document.getElementById("noChanceBtn")?.addEventListener("click", () => {
+            renderBungaMoothi();
+        });
+    }
+
+    function renderBungaMoothi() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <div class="image-container">
+                        <img src="${images.bungaMoothi}" alt="Bunga Moothi" onerror="this.src='https://placehold.co/600x400/F9ACB5/4A2E34?text=🙈+Bunga+Moothi+Pettenu+🙈'">
+                    </div>
+                    <p style="font-size: 2rem; font-weight: bold; margin-top: 1rem; color:#b14761;">nen aligaanu bunga moothi pettanuuuu 😢💔</p>
+                </div>
+                <div class="btn-group">
+                    <button id="yesFromBungaBtn" class="btn-yes">Yes 💖</button>
+                    <button id="noFromBungaBtn" class="btn-no">No chance again 💔</button>
+                </div>
+            </div>
+        `;
+        document.getElementById("yesFromBungaBtn")?.addEventListener("click", () => {
+            renderNaakTelusuSubbu();
+        });
+        document.getElementById("noFromBungaBtn")?.addEventListener("click", () => {
+            renderFinalUltimatumYesNo();
+        });
+    }
+
+    function renderNaakTelusuSubbu() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <div class="image-container">
+                        <img src="${images.bestieForever}" alt="Bestie Forever" onerror="this.src='https://placehold.co/600x400/E8A2B0/2C3E50?text=🤝+Na+Bestie+Subbu+🤝'">
+                    </div>
+                    <p style="font-size: 1.7rem; font-weight: 600; margin-top: 1rem;">naak telsu subbu nuvu yes click chesthav ani nen neek chaala important ani naak telsu lee raa subbu fellow 🥹💖</p>
+                </div>
+                <div style="margin: 1rem 0;">
+                    <div id="finalChoiceArea"></div>
+                </div>
+            </div>
+        `;
+        const finalArea = document.getElementById("finalChoiceArea");
+        finalArea.innerHTML = `
+            <div class="btn-group">
+                <button id="finalYesBtn" class="btn-yes">Final Yes ✨💎</button>
+                <button id="finalNoBtn" class="btn-no">Final No 💔</button>
+            </div>
+            <div id="finalNoMessage" class="center-align" style="margin-top: 1rem;"></div>
+        `;
+        document.getElementById("finalYesBtn")?.addEventListener("click", () => {
+            renderFinalYesFriendship();
+        });
+        document.getElementById("finalNoBtn")?.addEventListener("click", () => {
+            const msgDiv = document.getElementById("finalNoMessage");
+            msgDiv.innerHTML = `<p style="color:#ac4f6e; font-weight: 500; background:#fff0f3; padding: 0.8rem; border-radius: 60px;">this button is not working due to you are best friend with siddu .. 🙈💕</p>`;
+        });
+    }
+
+    function renderFinalYesFriendship() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <p style="font-size: 1.9rem; font-weight: bold; color:#882d46;">naak telsu subbu nuvu yes click chesthav ani mana friendship alaantidi i knoww raa kothi subbuu 😏💖</p>
+                    <div class="image-container">
+                        <img src="${images.finalBesties}" alt="Besties Forever" onerror="this.src='https://placehold.co/600x400/FFB7C5/3E2A35?text=👯‍♀️+Besties+Forever+Subbu+Siddu+👯‍♀️'">
+                    </div>
+                    <p style="margin-top: 1rem;">✨ You're my forever Kohinoor ✨</p>
+                </div>
+                <button id="restartFinalBtn" style="margin-top: 1rem;">Start Over 💞</button>
+            </div>
+        `;
+        document.getElementById("restartFinalBtn")?.addEventListener("click", () => {
+            renderMainScreen();
+        });
+    }
+
+    function renderFinalUltimatumYesNo() {
+        root.innerHTML = `
+            <div class="center-align">
+                <div class="message-box">
+                    <p style="font-size: 1.8rem; font-weight: bold;">💔 You still said no? 💔</p>
+                    <p>But I know your heart says yes, Subbu!</p>
+                </div>
+                <div id="finalDoubleChoice"></div>
+            </div>
+        `;
+        const container = document.getElementById("finalDoubleChoice");
+        container.innerHTML = `
+            <div class="btn-group">
+                <button id="finalYesAgainBtn" class="btn-yes">Final Yes 💎</button>
+                <button id="finalNoAgainBtn" class="btn-no">Final No 😞</button>
+            </div>
+            <div id="extraNoMsg" style="margin-top: 1rem;"></div>
+        `;
+        document.getElementById("finalYesAgainBtn")?.addEventListener("click", () => {
+            renderFinalYesFriendship();
+        });
+        document.getElementById("finalNoAgainBtn")?.addEventListener("click", () => {
+            const msgDiv = document.getElementById("extraNoMsg");
+            msgDiv.innerHTML = `<p style="color:#b34b68; background:#fff0f0; padding: 0.7rem; border-radius: 40px;">this button is not working due to you are best friend with siddu .. 🥺❤️</p>`;
+        });
+    }
+
+    renderMainScreen();
+</script>
+</body>
+</html>
